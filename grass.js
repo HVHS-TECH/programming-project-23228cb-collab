@@ -1,6 +1,6 @@
 // setup()
 /*******************************************************/
-
+	let mowerDirection = 270;
 function setup() {
 	console.log("setup: ");
 	
@@ -24,7 +24,7 @@ function setup() {
 	wallRH  = new Sprite(700, 300, 8, 605, 'k');
 	wallTop = new Sprite(400, 0, 800, 8, 'k');
 	wallBot = new Sprite(400, 605, 800, 8, 'k');
-    mower = new Sprite(45, 535, 90, 120, 'd' );
+    mower = new Sprite(45, 535, 120, 90, 'd' );
 	
 	mower.color = "Red";
 	mower.drag = 1;
@@ -53,40 +53,41 @@ function setup() {
 /*******************************************************/
 function draw() {
 	background("green");
-	mower.direction = mower.rotation;
+	mower.direction = mowerDirection;
+	mower.rotation =  mowerDirection;
     //mower left/right
 if (kb.pressing('a')) {
-	mower.rotationSpeed = -2;
-	
-}
-
-else if (kb.pressing ('d')) {
-   	mower.rotationSpeed = 2;
-	
+	mowerDirection = mowerDirection-2;
 };
 
-if (kb.released('a')){
-	mower.rotationSpeed = 0;
-	
-}
-else if (kb.released('d')){
-	mower.rotationSpeed = 0;
-	
+if (kb.pressing ('d')) {
+   	mowerDirection = mowerDirection+2;
 };
+
+
+
+//if (kb.released('a')){
+	//mower.rotationSpeed = 0;
+	
+//}
+//else if (kb.released('d')){
+	//mower.rotationSpeed = 0;
+	
+//};
 
 //mower Up/down
 if (kb.pressing('s')) {
-    mower.speed = -20
+    mower.speed = -20;
 }
 else{
-	mower.speed = 0
+	mower.speed = 0;
 };
 if (kb.pressing('w')){
-	mower.speed = 20
+	mower.speed = 20;
 }
 else{
-	mower.speed = 0
-}
+	mower.speed = 0;
+};
 }
 
 /*******************************************************/
