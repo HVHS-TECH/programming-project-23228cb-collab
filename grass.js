@@ -1,76 +1,92 @@
 // setup()
 /*******************************************************/
+
 function setup() {
 	console.log("setup: ");
-
-	cnv = new Canvas( 800, 800);
 	
-
+	let Canvas = createCanvas( 700, 605);
+	Canvas.position(windowWidth/4, 10);
+	world.gravity.y = 0;
+	grassGroup = new Group();
+	
+	
 	//create a line of 10 sprites across the top of the screen
-for (var i = 0; i < 21; i++) {
-	spriteColor = color('green')
-  	for (var x = 0; x < 27; x++) {
-  	var block = new Sprite(x*30+17, i*30+195, 30, 30, 'n' );
-	block.color = spriteColor;
-   
+	for (var i = 0; i < 20; i++) {
+		spriteColor = color('lime');
+  	for (var x = 0; x < 23; x++) {
+  		var grass = new Sprite(x*30+19, i*30+19, 30, 30, 'k' );
+		grass.color = spriteColor;
+    	grassGroup.add(grass);
 }
-
-  }
-   world.gravity.y = 0;
-	wallLH  = new Sprite(0, 400, 8, windowHeight, 'k');
+}
+//sprites
+	wallLH  = new Sprite(0, 300, 8, 600, 'k');
+	wallRH  = new Sprite(700, 300, 8, 605, 'k');
+	wallTop = new Sprite(400, 0, 800, 8, 'k');
+	wallBot = new Sprite(400, 605, 800, 8, 'k');
+    mower = new Sprite(45, 535, 90, 120, 'd' );
+	
+	mower.color = "Red";
+	mower.drag = 1;
+	mower.friction = 10;
+	mower.drag = 10;
+	mower.bounciness = -10;
+	wallBot.color = 'black';
 	wallLH.color = 'black';
-	wallRH  = new Sprite(800, windowHeight/2, 8, windowHeight, 'k');
-	wallTop = new Sprite(windowWidth/2, 175, windowWidth, 8, 'k');
-	wallBot = new Sprite(windowWidth/2, 800, windowWidth, 8, 'k');
-    Rect = new Sprite(400, 400, windowWidth/5, windowHeight/10, 'd' );
-	Rect.color = "Red";
-	Rect.drag = 10
+	wallRH.color = 'black';
+	wallTop.color = 'black';
+
+//grass collision
+	grassGroup.collides(mower, grassCutFunc );
 	
 }
+	
 
+//grass delete function
+	function grassCutFunc(_ssss, _mower){
+		_ssss.remove();
+	}
 
 
 /*******************************************************/
 // draw()
 /*******************************************************/
 function draw() {
-	background("white");
-    //Rect left/right
-if (kb.pressing('left')) {
-		Rect.bearing = -90;
-		Rect.applyForce(6);
+	background("green");
+	mower.direction = mower.rotation;
+    //mower left/right
+if (kb.pressing('a')) {
+	mower.rotationSpeed = -2;
 	
 }
 
-else if (kb.pressing ('right')) {
-   	Rect.rotationSpeed = 2  
+else if (kb.pressing ('d')) {
+   	mower.rotationSpeed = 2;
 	
 };
 
-if (kb.released('left')){
-	Rect.rotationSpeed = 0
+if (kb.released('a')){
+	mower.rotationSpeed = 0;
 	
 }
-else if (kb.released('right')){
-	Rect.rotationSpeed = 0
+else if (kb.released('d')){
+	mower.rotationSpeed = 0;
 	
 };
 
-//Rect Up/down
-if (kb.pressing('down')) {
-    	Rect.vel.y = 2
+//mower Up/down
+if (kb.pressing('s')) {
+    mower.speed = -20
 }
-
-else if (kb.pressing ('up')) {
-   	Rect.vel.y = -2
+else{
+	mower.speed = 0
 };
-
-if (kb.released('down')){
-	Rect.vel.y = 0
+if (kb.pressing('w')){
+	mower.speed = 20
 }
-else if (kb.released('up')){
-	Rect.vel.y = 0
-};
+else{
+	mower.speed = 0
+}
 }
 
 /*******************************************************/
