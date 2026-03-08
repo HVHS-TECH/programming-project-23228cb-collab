@@ -1,6 +1,6 @@
 // setup()
 /*******************************************************/
-	let mowerDirection = 270;
+	let mowerDirection = 0;
 function setup() {
 	console.log("setup: ");
 	
@@ -77,13 +77,13 @@ if (kb.pressing ('d')) {
 
 //mower Up/down
 if (kb.pressing('s')) {
-    mower.speed = -20;
+    mower.speed = -2;
 }
 else{
 	mower.speed = 0;
 };
 if (kb.pressing('w')){
-	mower.speed = 20;
+	mower.speed = 2;
 }
 else{
 	mower.speed = 0;
