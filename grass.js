@@ -1,6 +1,6 @@
 // setup()
 /*******************************************************/
-	let mowerDirection = 0;
+	
 function setup() {
 	console.log("setup: ");
 	
@@ -53,41 +53,51 @@ function setup() {
 /*******************************************************/
 function draw() {
 	background("green");
-	mower.direction = mowerDirection;
-	mower.rotation =  mowerDirection;
+	
     //mower left/right
 if (kb.pressing('a')) {
-	mowerDirection = mowerDirection-2;
+	mower.rotation = 180
+	mower.vel.x = -2;
 };
 
 if (kb.pressing ('d')) {
-   	mowerDirection = mowerDirection+2;
+	mower.rotation = 0
+	mower.vel.x = 2;
+
 };
 
+if (kb.released('a')){
+	mower.rotation = 180
+	mower.vel.x = 0;
+	mower.rotationSpeed = 0
+}
 
-
-//if (kb.released('a')){
-	//mower.rotationSpeed = 0;
-	
-//}
-//else if (kb.released('d')){
-	//mower.rotationSpeed = 0;
-	
-//};
+else if (kb.released('d')){
+	mower.rotation = 0
+	mower.vel.x = 0;
+	mower.rotationSpeed = 0
+};
 
 //mower Up/down
-if (kb.pressing('s')) {
-    mower.speed = -2;
+if (kb.pressing('s')){
+	mower.vel.y = 2;
+	mower.rotation = 90;
 }
-else{
-	mower.speed = 0;
+else if (kb.released('s')){
+	mower.vel.y = 0;
+	mower.rotationSpeed = 0
+	
 };
 if (kb.pressing('w')){
-	mower.speed = 2;
+	mower.vel.y = -2;
+	mower.rotation = 270;
 }
-else{
-	mower.speed = 0;
+else if (kb.released('w')){
+	mower.vel.y = 0;
+	mower.rotationSpeed = 0
+	
 };
+if (kb.pressing('w')&&kb.pressing('d'))
 }
 
 /*******************************************************/
