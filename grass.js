@@ -86,7 +86,6 @@ if (kb.pressing('s')){
 else if (kb.released('s')){
 	mower.vel.y = 0;
 	mower.rotationSpeed = 0
-	
 };
 if (kb.pressing('w')){
 	mower.vel.y = -2;
@@ -94,11 +93,10 @@ if (kb.pressing('w')){
 }
 else if (kb.released('w')){
 	mower.vel.y = 0;
-	mower.rotationSpeed = 0
-	
+	mower.rotationSpeed = 0;
 };
-if (kb.pressing('w')&&kb.pressing('d'))
 }
+
 
 /*******************************************************/
 //  END OF APP
