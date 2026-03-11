@@ -2,19 +2,21 @@
 /*******************************************************/
 	
 function setup() {
+	//setup
 	console.log("setup: ");
-	
 	let Canvas = createCanvas( 700, 605);
 	Canvas.position(windowWidth/4, 10);
 	world.gravity.y = 0;
 	grassGroup = new Group();
+	frameRate(60);
+	let Timer = 0;
 	
 	
 	//create a line of 10 sprites across the top of the screen
-	for (var i = 0; i < 20; i++) {
+	for (var i = 0; i < 38; i++) {
 		spriteColor = color('lime');
-  	for (var x = 0; x < 23; x++) {
-  		var grass = new Sprite(x*30+19, i*30+19, 30, 30, 'k' );
+  	for (var x = 0; x < 44; x++) {
+  		var grass = new Sprite(x*15+30, i*15+26, 15, 15, 'k' );
 		grass.color = spriteColor;
     	grassGroup.add(grass);
 }
@@ -24,7 +26,7 @@ function setup() {
 	wallRH  = new Sprite(700, 300, 8, 605, 'k');
 	wallTop = new Sprite(400, 0, 800, 8, 'k');
 	wallBot = new Sprite(400, 605, 800, 8, 'k');
-    mower = new Sprite(45, 535, 120, 90, 'd' );
+    mower = new Sprite(45, 535, 60, 45, 'd' );
 	
 	mower.color = "Red";
 	mower.drag = 1;
@@ -53,7 +55,7 @@ function setup() {
 /*******************************************************/
 function draw() {
 	background("green");
-	
+	frameCount();
     //mower left/right
 if (kb.pressing('a')) {
 	mower.rotation = 180
@@ -96,6 +98,7 @@ else if (kb.released('w')){
 	mower.vel.y = 0;
 	mower.rotationSpeed = 0;
 };
+
 //mower diagonal
 if (kb.pressing('w')&&kb.pressing('d')){
 	mower.rotation = 315;
@@ -124,6 +127,7 @@ if (kb.pressing('s')&&kb.pressing('a')){
 else if(kb.released('s')&&kb.released('a')){
 	mower.rotationSpeed = 0;
 };
+
 }
 
 /*******************************************************/
