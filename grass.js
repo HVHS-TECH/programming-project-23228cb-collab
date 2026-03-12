@@ -1,31 +1,33 @@
 // setup()
 /*******************************************************/
+	let timer = 0;
+	let grassCount =0;
 	
 function setup() {
 	//setup
 	console.log("setup: ");
-	let Canvas = createCanvas( 700, 605);
-	Canvas.position(windowWidth/4, 10);
+	let Canvas = createCanvas( 700, 645);
+	Canvas.position(windowWidth/4, 50);
 	world.gravity.y = 0;
 	grassGroup = new Group();
 	frameRate(60);
-	let Timer = 0;
+	
 	
 	
 	//create a line of 10 sprites across the top of the screen
 	for (var i = 0; i < 38; i++) {
 		spriteColor = color('lime');
   	for (var x = 0; x < 44; x++) {
-  		var grass = new Sprite(x*15+30, i*15+26, 15, 15, 'k' );
+  		var grass = new Sprite(x*15+30, i*15+66, 15, 15, 'k' );
 		grass.color = spriteColor;
     	grassGroup.add(grass);
 }
 }
 //sprites
-	wallLH  = new Sprite(0, 300, 8, 600, 'k');
-	wallRH  = new Sprite(700, 300, 8, 605, 'k');
-	wallTop = new Sprite(400, 0, 800, 8, 'k');
-	wallBot = new Sprite(400, 605, 800, 8, 'k');
+	wallLH  = new Sprite(0, 340, 8, 600, 'k');
+	wallRH  = new Sprite(700, 340, 8, 605, 'k');
+	wallTop = new Sprite(400, 40, 800, 8, 'k');
+	wallBot = new Sprite(400, 645, 800, 8, 'k');
     mower = new Sprite(45, 535, 60, 45, 'd' );
 	
 	mower.color = "Red";
@@ -55,7 +57,17 @@ function setup() {
 /*******************************************************/
 function draw() {
 	background("green");
-	frameCount();
+	text(timer,350,20);
+	textSize(20,20);
+	grassCount = grassGroup.length;
+	console.log(grassGroup.length);
+
+	if(grassGroup.length=0){
+	timer=frameCount/60;
+	timer=Math.round(timer*1000)/1000;
+	console.log(timer);
+};
+	
     //mower left/right
 if (kb.pressing('a')) {
 	mower.rotation = 180
