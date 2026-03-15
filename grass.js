@@ -66,7 +66,7 @@ function draw() {
 	//grass left
 	let grassPersent = grassCount/1637*100;
 	grassPersent=Math.round(grassPersent*100)/100;
-	text(grassPersent,300,20);
+	text(grassPersent+'%',300,20);
 	
 
 	//time stop
@@ -79,44 +79,44 @@ function draw() {
     //mower left/right
 if (kb.pressing('a')) {
 	mower.rotation = 270;
-	mower.vel.x = -6;
+	mower.vel.x = -4;
 };
 
 if (kb.pressing ('d')) {
 	mower.rotation = 90;
-	mower.vel.x = 6;
+	mower.vel.x = 4;
 
 };
 
 if (kb.released('a')){
 	mower.rotation = 180;
 	mower.vel.x = 0;
-	mower.rotationSpeed = 0;
+	mower.rotation = 270;
 }
 
 else if (kb.released('d')){
 	mower.rotation = 0;
 	mower.vel.x = 0;
-	mower.rotationSpeed = 0;
+	mower.rotation = 90;
 };
 
 //mower Up/down
 if (kb.pressing('s')){
-	mower.vel.y = 6;
+	mower.vel.y = 4;
 	mower.rotation =180;
 }
 else if (kb.released('s')){
 	mower.vel.y = 0;
-	mower.rotationSpeed = 0;
+	mower.rotation = 180;
 };
 
 if (kb.pressing('w')){
-	mower.vel.y = -6;
+	mower.vel.y = -4;
 	mower.rotation = 0;
 }
 else if (kb.released('w')){
 	mower.vel.y = 0;
-	mower.rotationSpeed = 0;
+	mower.rotation = 0;
 };
 
 //mower diagonal
@@ -124,28 +124,28 @@ if (kb.pressing('w')&&kb.pressing('d')){
 	mower.rotation = 45;
 }
 else if(kb.released('w')&&kb.released('d')){
-	mower.rotationSpeed = 0;
+	mower.rotation = 45;
 };
 
 if (kb.pressing('w')&&kb.pressing('a')){
 	mower.rotation = 315;
 }
 else if(kb.released('w')&&kb.released('a')){
-	mower.rotationSpeed = 0;
+	mower.rotation = 315;
 };
 
 if (kb.pressing('s')&&kb.pressing('d')){
 	mower.rotation = 135;
 }
 else if(kb.released('s')&&kb.released('d')){
-	mower.rotationSpeed = 0;
+	mower.rotation = 135;
 };
 
 if (kb.pressing('s')&&kb.pressing('a')){
 	mower.rotation = 225;
 }
 else if(kb.released('s')&&kb.released('a')){
-	mower.rotationSpeed = 0;
+	mower.rotation = 225;
 };
 
 }
