@@ -4,7 +4,7 @@
 //image preload
 function preload() {
   mowerSpriteIMG = loadImage('/assets/lawnMower.png');
-
+  grassIMG = loadImage('/assets/grassSprite.png')
 }	
 
 // setup()
@@ -17,14 +17,15 @@ function setup() {
 	world.gravity.y = 0;
 	grassGroup = new Group();
 	frameRate(60);
-	
+	grassIMG.resize(45,45);
 	//grass spawn
 	for (var i = 0; i < 38; i++) {
-		spriteColor = color('#17c93d');
+		
   	for (var x = 0; x < 44; x++) {
   		var grass = new Sprite(x*15+30, i*15+66, 15, 15, 'k' );
-		grass.color = spriteColor;
+	
     	grassGroup.add(grass);
+		grass.image = (grassIMG);
 }
 };
 
@@ -44,7 +45,7 @@ function setup() {
 	mower.friction = 20;
 
 //grass collision
-	grassGroup.collides(mower, grassCutFunc );
+	grassGroup.overlaps(mower, grassCutFunc );
 	
 }
 	
@@ -58,13 +59,15 @@ function setup() {
 /*******************************************************/
 function draw() {
 	background("green");
+	mower.rotationSpeed = 0;
 	//timer
 	text(timer,400,20);
 	textSize(20);
+	console.log(grassCount);
 	grassCount = grassGroup.length;
 	
 	//grass left
-	let grassPersent = grassCount/1637*100;
+	let grassPersent = grassCount/1656*100;
 	grassPersent=Math.round(grassPersent*100)/100;
 	text(grassPersent+'%',300,20);
 	
