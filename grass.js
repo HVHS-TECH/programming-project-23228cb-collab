@@ -3,8 +3,8 @@
 	let grassCount =0;
 //image preload
 function preload() {
-  mowerSpriteIMG = loadImage('/assets/lawnMower.png');
-  grassIMG = loadImage('/assets/grassSprite.png')
+  mowerSpriteIMG = loadImage('assets/lawnMower.png');
+  grassIMG = loadImage('assets/grassSprite.png')
 }	
 
 // setup()
