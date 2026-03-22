@@ -71,13 +71,16 @@ function draw() {
 	grassPersent=Math.round(grassPersent*100)/100;
 	text(grassPersent+'%',300,20);
 	
-
 	//time stop
 	if(grassCount>0){
 	timer=frameCount/60;
 	timer=Math.round(timer*1000)/1000;
+	};
 	
-};
+	//end
+	if(grassCount=0){
+	
+	}
 	
     //mower left/right
 if (kb.pressing('a')) {
