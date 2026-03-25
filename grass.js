@@ -60,27 +60,30 @@ function setup() {
 function draw() {
 	background("green");
 	mower.rotationSpeed = 0;
-	//timer
-	text(timer,400,20);
-	textSize(20);
-	console.log(grassCount);
+	
 	grassCount = grassGroup.length;
 	
 	//grass left
 	let grassPersent = grassCount/1656*100;
 	grassPersent=Math.round(grassPersent*100)/100;
-	text(grassPersent+'%',300,20);
+	
 	
 	//time stop
 	if(grassCount>0){
 	timer=frameCount/60;
 	timer=Math.round(timer*1000)/1000;
-	};
+	//timer
+	text(timer,400,20);
+	textSize(20);
+	//percent text
+	text(grassPersent+'%',300,20);
+};
 	
 	//end
-	if(grassCount=0){
-	
-	}
+	if(grassCount===0){
+	allSprites.remove();
+	text(timer,400,300);
+};
 	
     //mower left/right
 if (kb.pressing('a')) {
