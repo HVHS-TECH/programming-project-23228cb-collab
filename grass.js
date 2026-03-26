@@ -87,8 +87,10 @@ function draw() {
 	text('YOUR TIME WAS',150,200);
 	text(timer,250,300);
 	textSize(40);
-	text('Refreash the tab to restart',100 ,400 );
+	text('Refresh the tab to restart',100 ,400 );
 };
+	//messages
+	
 	
     //mower left/right
 if (kb.pressing('a')) {
