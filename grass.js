@@ -58,7 +58,7 @@ function setup() {
 // draw()
 /*******************************************************/
 function draw() {
-	background("green");
+	
 	mower.rotationSpeed = 0;
 	
 	grassCount = grassGroup.length;
@@ -68,8 +68,9 @@ function draw() {
 	grassPersent=Math.round(grassPersent*100)/100;
 	
 	
-	//time stop
+	//if grass on screen
 	if(grassCount>0){
+	background("green");
 	timer=frameCount/60;
 	timer=Math.round(timer*1000)/1000;
 	//timer
@@ -81,8 +82,12 @@ function draw() {
 	
 	//end
 	if(grassCount===0){
+	background("white");
 	allSprites.remove();
-	text(timer,400,300);
+	text('YOUR TIME WAS',150,200);
+	text(timer,250,300);
+	textSize(40);
+	text('Refreash the tab to restart',100 ,400 );
 };
 	
     //mower left/right
