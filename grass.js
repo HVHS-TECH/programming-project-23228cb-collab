@@ -88,9 +88,8 @@ function draw() {
 	text(timer,250,300);
 	textSize(40);
 	text('Refresh the tab to restart',100 ,400 );
+	//
 };
-	//messages
-	
 	
     //mower left/right
 if (kb.pressing('a')) {
