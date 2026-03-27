@@ -6,7 +6,9 @@ function preload() {
   mowerSpriteIMG = loadImage('assets/lawnMower.png');
   grassIMG = loadImage('assets/grassSprite.png')
 }	
-
+function callAlert () {
+alert("What's taking you so long")
+};
 // setup()
 /*******************************************************/
 function setup() {
@@ -88,8 +90,9 @@ function draw() {
 	text(timer,250,300);
 	textSize(40);
 	text('Refresh the tab to restart',100 ,400 );
-	//
-};
+};	
+
+
 	
     //mower left/right
 if (kb.pressing('a')) {
@@ -137,30 +140,46 @@ else if (kb.released('w')){
 //mower diagonal
 if (kb.pressing('w')&&kb.pressing('d')){
 	mower.rotation = 45;
+	mower.vel.y = -2;
+	mower.vel.x = 2;
 }
 else if(kb.released('w')&&kb.released('d')){
 	mower.rotation = 45;
+	mower.vel.y = 0;
+	mower.vel.x = 0;
 };
 
 if (kb.pressing('w')&&kb.pressing('a')){
 	mower.rotation = 315;
+	mower.vel.y = -2;
+	mower.vel.x = -2;
 }
 else if(kb.released('w')&&kb.released('a')){
 	mower.rotation = 315;
+	mower.vel.y = 0;
+	mower.vel.x = 0;
 };
 
 if (kb.pressing('s')&&kb.pressing('d')){
 	mower.rotation = 135;
+	mower.vel.y = 2;
+	mower.vel.x = 2;
 }
 else if(kb.released('s')&&kb.released('d')){
 	mower.rotation = 135;
+	mower.vel.y = 0;
+	mower.vel.x = 0;
 };
 
 if (kb.pressing('s')&&kb.pressing('a')){
 	mower.rotation = 225;
+	mower.vel.y = 2;
+	mower.vel.x = -2;
 }
 else if(kb.released('s')&&kb.released('a')){
 	mower.rotation = 225;
+	mower.vel.y = 0;
+	mower.vel.x = 0;
 };
 
 }
