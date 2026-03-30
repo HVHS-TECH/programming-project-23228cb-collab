@@ -74,9 +74,9 @@ function draw() {
 	//if grass on screen
 	if (grassCount > 0) {
 		background("green");
-		//timer
 		timer = frameCount / 60;
 		timer = Math.round(timer * 1000) / 1000;
+		//timer
 		text(timer, 400, 20);
 		textSize(20);
 		//percent text
