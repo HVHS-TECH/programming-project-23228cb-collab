@@ -19,20 +19,20 @@ function preload() {
 // setup()
 /*******************************************************/
 function setup() {
-	
+
 	//setup
 	console.log("setup: ");
 	world.gravity.y = 0;
-	
+
 	//canvas setup
 	let Canvas = createCanvas(canvasWidth, canvasHeight);
 	Canvas.position(windowWidth / 4, 50);
 	frameRate(60);
-	
+
 	//grass code
-	grassGroup = new Group();	
+	grassGroup = new Group();
 	grassIMG.resize(45, 45);
-	
+
 	//grass spawn
 	for (var i = 0; i < 38; i++) {
 
@@ -50,7 +50,7 @@ function setup() {
 	wallTop = new Sprite(canvasWidth / 2, 40, 800, 8, 'k');
 	wallBot = new Sprite(canvasWidth / 2, canvasHeight, 800, 8, 'k');
 	wallGroup = new Group();
-	wallGroup.add(wallBot,wallLH,wallRH,wallTop);
+	wallGroup.add(wallBot, wallLH, wallRH, wallTop);
 	wallGroup.color = ('black');
 
 	//mower sprite code 
@@ -58,48 +58,59 @@ function setup() {
 	mower.image = (mowerSpriteIMG);
 	mower.friction = 20;
 
+
 	//grass collision
 	grassGroup.overlaps(mower, grassCutFunc);
 
-}
+};
 
 //grass delete function
 function grassCutFunc(_ssss, _mower) {
 	_ssss.remove();
-}
+};
 
 /*******************************************************/
 // draw()
 /*******************************************************/
 function draw() {
+	console.log(gameState);
+	if (gameState === "menu") {
 
-	 if (gameState === "menu") {
+		drawStart();
 
-    drawStart();
+	} else if (gameState === "game") {
 
-  } else if (gameState === "game") {
+		drawGame();
 
-    drawGame();
+	} else if (gameState === "end") {
 
-  } else if (gameState === "end") {
+		drawEnd();
 
-    drawEnd();
-	
-  };
-
-};
-
-function drawStart() {
-	mower.visable = false;
-	grassGroup.visable = false;
-	wallGroup.visable = false;
-	if(kb.pressed('enter')){
-		gameState = "game";
 	};
 };
 
-function drawGame(){
-mower.rotationSpeed = 0;
+function drawStart() {
+	background("white");
+	//sprite visability
+	mower.visible = false;
+	grassGroup.visible = false;
+	wallGroup.visible = false;
+	//start game button
+	if (kb.pressed('enter')) {
+		gameState = "game";
+	};
+	//text
+	text('Press Enter To Start', 100, 400);
+};
+
+function drawGame() {
+	background("green");
+	//sprite visablitiy 
+	mower.visible = true;
+	grassGroup.visible = true;
+	wallGroup.visible = true;
+	//setups
+	mower.rotationSpeed = 0;
 	grassCount = grassGroup.length;
 
 	//grass left
@@ -109,7 +120,6 @@ mower.rotationSpeed = 0;
 
 	//if grass on screen
 	if (grassCount > 0) {
-		background("green");
 		timer = frameCount / 60;
 		timer = Math.round(timer * 1000) / 1000;
 		//timer
@@ -215,16 +225,21 @@ mower.rotationSpeed = 0;
 	};
 };
 
-function drawEnd(){
+function drawEnd() {
 	background("white");
-	allSprites.remove();
-	text('YOUR TIME WAS', 150, 200);
-	text(timer + ' Seconds', 250, 300);
+	//text
+	text('YOUR TIME WAS ' + timer + ' Seconds', 150, 200);
 	textSize(40);
-	text('Refresh The Page To Restart', 100, 400);
-	mower.visable = false;
-	grassGroup.visable = false;
-	wallGroup.visable = false;
+	text('Press Enter To Restart', 100, 400);
+	//restart button
+	if(kb.pressed('enter')){
+		gameState = "menu";
+	};
+	//sprite visability
+	mower.visible = false;
+	grassGroup.visible = false;
+	wallGroup.visible = false;
+	startButton.visible = false;
 };
 
 /*******************************************************/
