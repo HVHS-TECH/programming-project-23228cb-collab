@@ -1,7 +1,13 @@
 //variables
 let timer = 0;
 let grassCount = 0;
-
+//the amount of grass on start
+let grassCountStart = 1660;
+//canvas size
+let canvasWidth = 700;
+let canvasHeight = 645;
+//game state
+let gameState = "menu";
 
 //image preload
 function preload() {
@@ -13,14 +19,20 @@ function preload() {
 // setup()
 /*******************************************************/
 function setup() {
+	
 	//setup
 	console.log("setup: ");
-	let Canvas = createCanvas(700, 645);
-	Canvas.position(windowWidth / 4, 50);
 	world.gravity.y = 0;
-	grassGroup = new Group();
+	
+	//canvas setup
+	let Canvas = createCanvas(canvasWidth, canvasHeight);
+	Canvas.position(windowWidth / 4, 50);
 	frameRate(60);
+	
+	//grass code
+	grassGroup = new Group();	
 	grassIMG.resize(45, 45);
+	
 	//grass spawn
 	for (var i = 0; i < 38; i++) {
 
@@ -32,18 +44,17 @@ function setup() {
 		}
 	};
 
-	//wall sprites
-	wallLH = new Sprite(0, 340, 8, 600, 'k');
-	wallRH = new Sprite(700, 340, 8, 605, 'k');
-	wallTop = new Sprite(400, 40, 800, 8, 'k');
-	wallBot = new Sprite(400, 645, 800, 8, 'k');
-	wallBot.color = 'black';
-	wallLH.color = 'black';
-	wallRH.color = 'black';
-	wallTop.color = 'black';
+	//wall sprites code
+	wallLH = new Sprite(0, canvasHeight / 2 + 20, 8, 600, 'k');
+	wallRH = new Sprite(canvasWidth, canvasHeight / 2 + 20, 8, 605, 'k');
+	wallTop = new Sprite(canvasWidth / 2, 40, 800, 8, 'k');
+	wallBot = new Sprite(canvasWidth / 2, canvasHeight, 800, 8, 'k');
+	wallGroup = new Group();
+	wallGroup.add(wallBot,wallLH,wallRH,wallTop);
+	wallGroup.color = ('black');
 
 	//mower sprite code 
-	mower = new Sprite(45, 535, 60, 45, 'd');
+	mower = new Sprite(45, canvasHeight - 25, 60, 45, 'd');
 	mower.image = (mowerSpriteIMG);
 	mower.friction = 20;
 
@@ -62,12 +73,37 @@ function grassCutFunc(_ssss, _mower) {
 /*******************************************************/
 function draw() {
 
-	mower.rotationSpeed = 0;
+	 if (gameState === "menu") {
 
+    drawStart();
+
+  } else if (gameState === "game") {
+
+    drawGame();
+
+  } else if (gameState === "end") {
+
+    drawEnd();
+	
+  };
+
+};
+
+function drawStart() {
+	mower.visable = false;
+	grassGroup.visable = false;
+	wallGroup.visable = false;
+	if(kb.pressed('enter')){
+		gameState = "game";
+	};
+};
+
+function drawGame(){
+mower.rotationSpeed = 0;
 	grassCount = grassGroup.length;
 
 	//grass left
-	let grassPersent = grassCount / 1656 * 100;
+	let grassPersent = grassCount / grassCountStart * 100;
 	grassPersent = Math.round(grassPersent * 100) / 100;
 
 
@@ -85,13 +121,7 @@ function draw() {
 
 	//end
 	if (grassCount === 0) {
-		background("white");
-
-		allSprites.remove();
-		text('YOUR TIME WAS', 150, 200);
-		text(timer + ' Seconds', 250, 300);
-		textSize(40);
-		text('Refresh The Page To Restart', 100, 400);
+		gameState = "end";
 
 	};
 
@@ -183,8 +213,19 @@ function draw() {
 		mower.vel.y = 0;
 		mower.vel.x = 0;
 	};
+};
 
-}
+function drawEnd(){
+	background("white");
+	allSprites.remove();
+	text('YOUR TIME WAS', 150, 200);
+	text(timer + ' Seconds', 250, 300);
+	textSize(40);
+	text('Refresh The Page To Restart', 100, 400);
+	mower.visable = false;
+	grassGroup.visable = false;
+	wallGroup.visable = false;
+};
 
 /*******************************************************/
 //  END OF APP
