@@ -98,12 +98,11 @@ function draw() {
 	if (grassCount > grassCountStart) {
 		grassCutFunc();
 	};
-	console.log(grassCount);
 	//ensure no movement if no imput
-	//if (kb.released('w')&&kb.released('s')&&kb.released('a')&&kb.released('d')) {
-	//	mower.vel.x = 0;
-	//	mower.vel.y = 0;
-	//};
+	if (kb.released('w')&&kb.released('s')&&kb.released('a')&&kb.released('d')) {
+		mower.vel.x = 0;
+		mower.vel.y = 0;
+	};
 };
 
 function drawStart() {
