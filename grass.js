@@ -4,7 +4,7 @@
 let timer = 0;
 let grassCount = 0;
 //the amount of grass on start
-let grassCountStart = 1660;
+let grassCountStart = 1657;
 //canvas size
 let canvasWidth = 700;
 let canvasHeight = 645;
@@ -20,7 +20,7 @@ function grassCutFunc(_ssss, _mower) {
 };
 
 //spawn grass function
-function grassSpawn(){
+function grassSpawn() {
 	for (var i = 0; i < 38; i++) {
 
 		for (var x = 0; x < 44; x++) {
@@ -30,7 +30,7 @@ function grassSpawn(){
 			grass.image = (grassIMG);
 		}
 	};
-	};
+};
 
 //image preload
 function preload() {
@@ -55,7 +55,7 @@ function setup() {
 	//grass code
 	grassGroup = new Group();
 	grassIMG.resize(45, 45);
-	
+
 	//wall sprites code
 	wallLH = new Sprite(0, canvasHeight / 2 + 20, 8, 600, 'k');
 	wallRH = new Sprite(canvasWidth, canvasHeight / 2 + 20, 8, 605, 'k');
@@ -66,7 +66,7 @@ function setup() {
 	wallGroup.color = ('black');
 
 	//mower sprite code 
-	mower = new Sprite(45, canvasHeight - 25, 60, 45, 'd');
+	mower = new Sprite(45, canvasHeight - 25, 80, 45, 'd');
 	mower.image = (mowerSpriteIMG);
 	mower.friction = 20;
 
@@ -95,8 +95,14 @@ function draw() {
 
 	};
 	//ensure that the correct amount of grass is on the screen
-	if (grassCount > grassCountStart ){
+	if (grassCount > grassCountStart) {
 		grassCutFunc();
+	};
+	console.log(grassCount);
+	//ensure no movement if no imput
+	if (kb.released(w) && kb.released(s) && kb.released(a) && kb.released(d)) {
+		mower.vel.x = 0;
+		mower.vel.y = 0;
 	};
 };
 
@@ -114,20 +120,25 @@ function drawStart() {
 		grassSpawn();
 		//reset the sprite
 		mower.x = 45; // original x
-  		mower.y =  canvasHeight - 25; // original y
-  		mower.vel.x = 0;
-  		mower.vel.y = 0;
-  		mower.speed = 0;
-  		mower.rotation = 0;
+		mower.y = canvasHeight - 25; // original y
+		mower.vel.x = 0;
+		mower.vel.y = 0;
+		mower.speed = 0;
+		mower.rotation = 0;
 		frameCount = 0;
 	};
+	//tital
+	text('LAZY LAWNS', canvasWidth / 4, 40)
 	//text
-	text('Press Enter To Start', 100, 400);
+	text('Press Enter To Start', canvasWidth / 4, canvasHeight / 4 + 2 * canvasHeight / 4);
+	//controls
+	text('W/S = Up/Down', canvasWidth / 4, canvasHeight / 4 + 40);
+	text('A/D = Left/Right', canvasWidth / 4, canvasHeight / 4 + 80);
 	textSize(40);
 };
 
 function drawGame() {
-	
+
 	background("green");
 	//sprite visablitiy 
 	mower.visible = true;
@@ -252,13 +263,13 @@ function drawGame() {
 function drawEnd() {
 	background("white");
 	//text
-	text('YOUR TIME WAS ' + timer + ' Seconds', 150, 200);
+	text('Your Time Was ' + timer + ' Seconds', canvasWidth / 8, 200);
 	textSize(40);
-	text('Press Enter To Restart', 100, 400);
+	text('Press Enter To Restart', canvasWidth / 8, 400);
 	//restart button
 	if (kb.pressed('enter')) {
 		gameState = "menu";
-		
+
 	};
 	//sprite visability
 	mower.visible = false;
