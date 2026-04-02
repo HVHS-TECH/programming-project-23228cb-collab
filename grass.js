@@ -1,7 +1,9 @@
 /*******************************************************/
 //variables
 /*******************************************************/
+//timer elapsed
 let timer = 0;
+//amount of grass
 let grassCount = 0;
 //the amount of grass on start
 let grassCountStart = 1657;
@@ -71,7 +73,7 @@ function setup() {
 	mower.friction = 20;
 
 
-	//grass collision
+	//grass overlap = cut
 	grassGroup.overlaps(mower, grassCutFunc);
 
 };
@@ -137,7 +139,7 @@ function drawStart() {
 };
 
 function drawGame() {
-
+	//background
 	background("green");
 	//sprite visablitiy 
 	mower.visible = true;
@@ -166,9 +168,7 @@ function drawGame() {
 	//end
 	if (grassCount === 0) {
 		gameState = "end";
-
 	};
-
 
 	//mower left/right
 	if (kb.pressing('a')) {
@@ -260,6 +260,7 @@ function drawGame() {
 };
 
 function drawEnd() {
+	//background
 	background("white");
 	//text
 	text('Your Time Was ' + timer + ' Seconds', canvasWidth / 8, 200);
