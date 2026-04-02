@@ -1,4 +1,6 @@
+/*******************************************************/
 //variables
+/*******************************************************/
 let timer = 0;
 let grassCount = 0;
 //the amount of grass on start
@@ -8,6 +10,27 @@ let canvasWidth = 700;
 let canvasHeight = 645;
 //game state
 let gameState = "menu";
+/*******************************************************/
+//functions
+/*******************************************************/
+
+//grass delete function
+function grassCutFunc(_ssss, _mower) {
+	_ssss.remove();
+};
+
+//spawn grass function
+function grassSpawn(){
+	for (var i = 0; i < 38; i++) {
+
+		for (var x = 0; x < 44; x++) {
+			var grass = new Sprite(x * 15 + 30, i * 15 + 66, 15, 15, 'k');
+
+			grassGroup.add(grass);
+			grass.image = (grassIMG);
+		}
+	};
+	};
 
 //image preload
 function preload() {
@@ -15,8 +38,8 @@ function preload() {
 	grassIMG = loadImage('assets/grassSprite.png')
 }
 
-
-// setup()
+/*******************************************************/
+// setup fuction
 /*******************************************************/
 function setup() {
 
@@ -32,18 +55,7 @@ function setup() {
 	//grass code
 	grassGroup = new Group();
 	grassIMG.resize(45, 45);
-
-	//grass spawn
-	for (var i = 0; i < 38; i++) {
-
-		for (var x = 0; x < 44; x++) {
-			var grass = new Sprite(x * 15 + 30, i * 15 + 66, 15, 15, 'k');
-
-			grassGroup.add(grass);
-			grass.image = (grassIMG);
-		}
-	};
-
+	
 	//wall sprites code
 	wallLH = new Sprite(0, canvasHeight / 2 + 20, 8, 600, 'k');
 	wallRH = new Sprite(canvasWidth, canvasHeight / 2 + 20, 8, 605, 'k');
@@ -64,16 +76,11 @@ function setup() {
 
 };
 
-//grass delete function
-function grassCutFunc(_ssss, _mower) {
-	_ssss.remove();
-};
-
 /*******************************************************/
-// draw()
+// draw loops
 /*******************************************************/
 function draw() {
-	console.log(gameState);
+	//alow for the 'gameState' variable to switch draw loops
 	if (gameState === "menu") {
 
 		drawStart();
@@ -87,6 +94,10 @@ function draw() {
 		drawEnd();
 
 	};
+	//ensure that the correct amount of grass is on the screen
+	if (grassCount > grassCountStart ){
+		grassCutFunc();
+	};
 };
 
 function drawStart() {
@@ -97,13 +108,26 @@ function drawStart() {
 	wallGroup.visible = false;
 	//start game button
 	if (kb.pressed('enter')) {
+		//change game state
 		gameState = "game";
+		//respawn grass
+		grassSpawn();
+		//reset the sprite
+		mower.x = 45; // original x
+  		mower.y =  canvasHeight - 25; // original y
+  		mower.vel.x = 0;
+  		mower.vel.y = 0;
+  		mower.speed = 0;
+  		mower.rotation = 0;
+		frameCount = 0;
 	};
 	//text
 	text('Press Enter To Start', 100, 400);
+	textSize(40);
 };
 
 function drawGame() {
+	
 	background("green");
 	//sprite visablitiy 
 	mower.visible = true;
@@ -232,14 +256,14 @@ function drawEnd() {
 	textSize(40);
 	text('Press Enter To Restart', 100, 400);
 	//restart button
-	if(kb.pressed('enter')){
+	if (kb.pressed('enter')) {
 		gameState = "menu";
+		
 	};
 	//sprite visability
 	mower.visible = false;
 	grassGroup.visible = false;
 	wallGroup.visible = false;
-	startButton.visible = false;
 };
 
 /*******************************************************/
